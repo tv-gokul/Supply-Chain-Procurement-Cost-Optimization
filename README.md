@@ -63,14 +63,18 @@ $$\min Z = \sum_{m \in M} c_m \cdot x_m$$
 ---
 
 ### **Model Parameters**
-* $c_m$: Cost per unit shipped via mode $m$
-  * $c_{\text{Standard}} = \$10$
-  * $c_{\text{Second}} = \$18$
-  * $c_{\text{First}} = \$28$
-  * $c_{\text{Same Day}} = \$45$
-* $r_m$: Historical late-delivery risk probability for mode $m$
-* $D$: Target order demand ($D = 10,000 \text{ units}$)
-* $\alpha$: Maximum acceptable overall late-delivery threshold ($\alpha = 0.05$ or $5\%$)
+
+* **$D$ (Target Demand):** $10,000 \text{ units}$
+* **$\alpha$ (SLA Delay Threshold):** $\le 5\%$ (Maximum $500 \text{ delayed units}$)
+
+* **Shipping Mode Parameters ($c_m$ = Cost/Unit, $r_m$ = Late Risk):**
+
+| Shipping Mode ($m$) | Unit Cost ($c_m$) | Delay Risk Rate ($r_m$) | Operational Cap ($\text{Cap}_m$) |
+| :--- | :--- | :--- | :--- |
+| **Standard Class** | $\$10$ | $12\%$ ($0.12$) | $\le 4,000 \text{ units}$ ($40\%$) |
+| **Second Class** | $\$18$ | $6\%$ ($0.06$) | $\le 4,000 \text{ units}$ ($40\%$) |
+| **First Class** | $\$28$ | $2\%$ ($0.02$) | $\le 3,000 \text{ units}$ ($30\%$) |
+| **Same Day** | $\$45$ | $1\%$ ($0.01$) | Uncapped (Slack mode) |
 
 ---
 
