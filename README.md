@@ -45,3 +45,51 @@ This project delivers a **two-tiered analytical pipeline**:
 ┌──────────────▼─────────────────┐
 │   Interactive Streamlit UI     │  ---> Executive Dashboard with Plotly Visuals
 └────────────────────────────────┘
+## 🧮 Linear Programming (LP) Mathematical Formulation
+
+The prescriptive optimization model minimizes total logistics shipping expenditure across fulfillment modes while strictly adhering to Service Level Agreement (SLA) delivery limits and carrier capacity caps.
+
+### **Objective Function**
+Minimize the total cost of shipping across all allocated volumes:
+
+$$\min Z = \sum_{m \in M} c_m \cdot x_m$$
+
+---
+
+### **Decision Variables**
+* $x_m \ge 0$: Volume (number of units) allocated to shipping mode $m \in M$.
+* $M = \{\text{Standard Class}, \text{Second Class}, \text{First Class}, \text{Same Day}\}$
+
+---
+
+### **Model Parameters**
+* $c_m$: Cost per unit shipped via mode $m$
+  * $c_{\text{Standard}} = \$10$
+  * $c_{\text{Second}} = \$18$
+  * $c_{\text{First}} = \$28$
+  * $c_{\text{Same Day}} = \$45$
+* $r_m$: Historical late-delivery risk probability for mode $m$
+* $D$: Target order demand ($D = 10,000 \text{ units}$)
+* $\alpha$: Maximum acceptable overall late-delivery threshold ($\alpha = 0.05$ or $5\%$)
+
+---
+
+### **Constraints**
+
+1. **Total Demand Satisfaction:**  
+   The sum of all order volumes across all modes must equal total demand exactly:
+   $$\sum_{m \in M} x_m = D$$
+
+2. **Maximum Late Delivery Risk SLA Constraint:**  
+   The expected number of late shipments across all modes cannot exceed 5% of total demand:
+   $$\sum_{m \in M} (r_m \cdot x_m) \le \alpha \cdot D$$
+
+3. **Operational Capacity Caps:**  
+   To reflect real-world logistics bottlenecks, volume allocated to specific modes is capped:
+   $$x_{\text{Standard Class}} \le 0.40 \cdot D \quad (4,000 \text{ units max})$$
+   $$x_{\text{Second Class}} \le 0.40 \cdot D \quad (4,000 \text{ units max})$$
+   $$x_{\text{First Class}} \le 0.30 \cdot D \quad (3,000 \text{ units max})$$
+
+4. **Non-Negativity Constraint:**  
+   Allocated shipping volume cannot be negative:
+   $$x_m \ge 0 \quad \forall m \in M$$
