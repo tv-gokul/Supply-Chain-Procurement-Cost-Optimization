@@ -25,6 +25,8 @@ This project delivers a **two-tiered analytical pipeline**:
 * **Category Vulnerability:** Mapped category-wise risk profiles, revealing that the top 10 categories account for over **65% of delay penalty spend**.
 * **Prescriptive Spend Reduction:** The LP optimization model projects a **~$400K+ recovery in operational expenditure** by re-allocating order volumes away from sub-optimal shipping channels under realistic capacity constraints
 
+```
+
 ## 🛠️ System Architecture & Workflow
 
 ┌────────────────────────────────┐
@@ -42,6 +44,7 @@ This project delivers a **two-tiered analytical pipeline**:
 ┌──────────────▼─────────────────┐
 │   Interactive Streamlit UI     │  ---> Executive Dashboard with Plotly Visuals
 └────────────────────────────────┘
+```
 ## 🧮 Linear Programming (LP) Mathematical Formulation
 
 The prescriptive optimization model minimizes total logistics shipping expenditure across fulfillment modes while strictly adhering to Service Level Agreement (SLA) delivery limits and carrier capacity caps.
